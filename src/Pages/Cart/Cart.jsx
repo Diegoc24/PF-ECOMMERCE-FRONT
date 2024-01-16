@@ -12,7 +12,7 @@ import {
 import "./Cart.css";
 
 const stripePromise = loadStripe(
-  "pk_test_51N8O0ND2954uHErKoG1T2lk4aJZ8dAKHXYg9ojVmzMcy3j63g2RpmgnBzHm0CRey97o5ZCwm52F931uvtIzL9Bk400pvawEOTQ"
+  "pk_test_51OYGoGHjvRynG5Lu0rrFtFOBjFDwhUZ3MvKJ9Udozz8qyXZXyN6jPLlKyvsSJRmazkDeeJFvvh9WXphm9Ku7I5ZO00oWwUxmXa"
 );
 
 function Cart() {

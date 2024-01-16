@@ -32,10 +32,11 @@ import {
   LOGIN_GOOGLE,
   LOGOUT,
   OPEN_EDIT,
-  REMOVE_FAVORITE,
+  SWITCH_FAVORITE,
   REMOVE_FROM_CART,
   SIGNUP,
   UPDATE_USER,
+  GET_FAVORITES
 } from "./actionsTypes";
 
 const initialState = {
@@ -93,6 +94,13 @@ const rootReducer = (state = initialState, { type, payload }) => {
         },
       };
     }
+    case GET_FAVORITES:
+      console.log("get");
+      console.log(payload);
+      return {
+        ...state,
+        myFavorites: payload,
+      }
     case ERROR_REGISTER:
       return {
         ...state,
@@ -360,7 +368,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         products: filteredProductsByType,
       };
 
-    case ADD_FAVORITE:
+    case SWITCH_FAVORITE:
       return {
         ...state,
         myFavorites: [...state.myFavorites, payload],
@@ -370,19 +378,19 @@ const rootReducer = (state = initialState, { type, payload }) => {
         },
       };
 
-    case REMOVE_FAVORITE:
-      return {
-        ...state,
-        myFavorites: state.myFavorites.filter(
-          (product) => product._id !== payload
-        ),
-        user: {
-          ...state.user,
-          myFavorites: state.myFavorites.filter(
-            (product) => product._id !== payload
-          ),
-        },
-      };
+    // case REMOVE_FAVORITE:
+    //   return {
+    //     ...state,
+    //     myFavorites: state.myFavorites.filter(
+    //       (product) => product._id !== payload
+    //     ),
+    //     user: {
+    //       ...state.user,
+    //       myFavorites: state.myFavorites.filter(
+    //         (product) => product._id !== payload
+    //       ),
+    //     },
+    //   };
 
     default:
       return { ...state };

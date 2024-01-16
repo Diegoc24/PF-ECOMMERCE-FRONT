@@ -60,7 +60,7 @@ function CheckoutForm({ data, cart }) {
     if (!stripe || !elements || user.cart.count <= 0) return;
     setPaying(true);
     const { client_secret } = await fetch(
-      "https://pf-ecommerce-back-production.up.railway.app/create-payment",
+      "http://localhost:3001/create-payment",
       {
         method: "POST",
         headers: {

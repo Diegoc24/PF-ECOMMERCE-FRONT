@@ -9,6 +9,7 @@ import {
   deletProductId,
   getProductById,
   removeFavorite,
+  switchFavorite,
 } from "../../Redux/Actions";
 import axios from "../../axios";
 import style from "./Detail.module.css";
@@ -22,7 +23,7 @@ import { verifyNotReview } from "../../Redux/Actions";
 import averageGrades from "../../utils/averageGrades";
 import { FormEdit } from "./components/formRating/formEdit/FormEdit";
 
-function Detail({ addFavorite, removeFavorite, myFavorites }) {
+function Detail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -87,15 +88,15 @@ function Detail({ addFavorite, removeFavorite, myFavorites }) {
     setBandera(ruta);
   }, [ruta]);
 
-  useEffect(() => {
-    if (user) {
-      myFavorites?.forEach((fav) => {
-        if (fav._id === id) {
-          setIsFav(true);
-        }
-      });
-    }
-  }, [myFavorites]);
+  // useEffect(() => {
+  //   if (user) {
+  //     myFavorites?.forEach((fav) => {
+  //       if (fav._id === id) {
+  //         setIsFav(true);
+  //       }
+  //     });
+  //   }
+  // }, [myFavorites]);
 
   // Add to Cart Notification.
   const notify = () =>
@@ -174,16 +175,32 @@ function Detail({ addFavorite, removeFavorite, myFavorites }) {
       duration: 3000,
       position: "bottom-right",
     });
+  
+  useEffect(()=>{
+    
+    
+    if(productId && productId.favorites){
+   productId?.favorites.map((obj) => {
+   
+    if(obj?.id_cliente === user?._id){
 
+      setIsFav(true)
+    }
+  })
+}
+
+
+  
+  },[productId?.favorites])
   const handdleFavorite = () => {
     if (user) {
       if (isFav) {
         setIsFav(false);
-        removeFavorite(user, productId);
+        dispatch(switchFavorite(user, productId))
         notifyNotFavorite();
       } else {
         setIsFav(true);
-        addFavorite(user, productId);
+        dispatch(switchFavorite(user, productId))
         notifyFav();
       }
     }
@@ -191,7 +208,7 @@ function Detail({ addFavorite, removeFavorite, myFavorites }) {
 
   return (
     <>
-      {console.log(user)}
+     
       {user ? (
         user.isActive ? (
           productId && productId.name ? (
@@ -342,21 +359,8 @@ function Detail({ addFavorite, removeFavorite, myFavorites }) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addFavorite: (user, product) => {
-      dispatch(addFavorite(user, product));
-    },
-    removeFavorite: (user, product) => {
-      dispatch(removeFavorite(user, product));
-    },
-  };
-};
 
-const mapStateToProps = (state) => {
-  return {
-    myFavorites: state.myFavorites,
-  };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Detail);
+
+
+export default Detail;

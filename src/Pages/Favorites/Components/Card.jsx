@@ -13,7 +13,7 @@ import style from "./Card.module.css";
 const Card = ({ data }) => {
   // Data.
   const { _id } = data;
-  const formattedPrice = data.price.toLocaleString();
+  const formattedPrice = data?.price?.toLocaleString();
 
   const dispatch = useDispatch();
 
@@ -54,6 +54,9 @@ const Card = ({ data }) => {
   };
 
   return (
+    <div>
+    {
+      
     <Link to={`detail/${_id}`} style={{ textDecoration: "none" }}>
       <div className={style.container} key={data.id}>
         <div className={style.containerImgs}>
@@ -64,7 +67,7 @@ const Card = ({ data }) => {
             slidesPerView={1}
             pagination={{ clickable: true }}
           >
-            {data.pictures.map((picture) => (
+            {data?.pictures.map((picture) => (
               <SwiperSlide key={picture}>
                 {(typeof picture === "string" && picture.endsWith(".jpg")) ||
                 picture.endsWith(".jpeg") ||
@@ -109,6 +112,9 @@ const Card = ({ data }) => {
         </div>
       </div>
     </Link>
+    
+    }
+    </div>
   );
 };
 

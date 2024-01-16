@@ -1,17 +1,8 @@
 .container{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
-    justify-content: center;
-    /* flex-direction: row; */
-    /* justify-content: space-around; */
-    /* flex-wrap: wrap; */
-    width: 100%;
-    min-width: 60rem;
-    margin-left: auto;
-    margin-right: auto;
-    padding-bottom: 4em;
-    position: -webkit-sticky;
+    gap: 30px;
+    
 }
 .paginated{
     margin-top: 5em;

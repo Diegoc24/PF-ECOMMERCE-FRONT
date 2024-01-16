@@ -23,6 +23,8 @@ import {
   MODIFY_STOCK_PRODUCT,
   OPEN_EDIT,
   REMOVE_FROM_CART,
+  SWITCH_FAVORITE,
+  GET_FAVORITES
 } from "../../actionsTypes.js";
 
 export const getProducts = () => {
@@ -59,7 +61,42 @@ export const modifyProductStock = (cart) => {
       });
   };
 };
-
+export const switchFavorite = (user, data) => {
+  return function (dispatch) {
+    axios
+      .put(`products/${data._id}`, { favorites: user._id, bandera: "favorites"})
+      .then((response) => {
+        const product = response.data;
+        dispatch({ type: SWITCH_FAVORITE, payload: product });
+      })
+      .catch((error) => {
+        console.log(`Error: ${error}`);
+      });
+  };
+};
+export const getFavorite = (user) => {
+  return async function (dispatch) {
+    try {
+      const json = await axios.get(`/products/?filterFavorites=favorites&id=${user._id}`);
+      return dispatch({ type: GET_FAVORITES, payload: json.data });
+    } catch (error) {
+      window.alert(error.response.data.Error);
+    }
+  };
+};
+  // return function (dispatch) {
+  //   axios
+  //     .get(`products`, 
+  //     { type: "favorites", id: user._id})
+  //     .then((response) => {
+  //       const product = response.data;
+  //       dispatch({ type: GET_FAVORITES, payload: product });
+  //     })
+  //     .catch((error) => {
+  //       console.log(`Error: ${error}`);
+  //     });
+  // };
+// };
 export const filterProducts = (filters) => {
   return async function (dispatch) {
     try {

@@ -4,7 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 const RutaAdmin = () => {
   const { user } = useSelector((state) => state);
 
-  if (user && !user.isAdmin) {
+  if (user && user.isAdmin === true) {
     return <Navigate to={"/"} replace />;
   }
   return <Outlet />;
