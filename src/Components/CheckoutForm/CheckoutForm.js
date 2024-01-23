@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 import { createOrder, modifyProductStock } from "../../Redux/Actions";
 
+
 import "./CheckoutForm.css";
 
 function CheckoutForm({ data, cart }) {
@@ -60,7 +61,7 @@ function CheckoutForm({ data, cart }) {
     if (!stripe || !elements || user.cart.count <= 0) return;
     setPaying(true);
     const { client_secret } = await fetch(
-      "http://localhost:3001/create-payment",
+      `${process.env.REACT_APP_BASE_URL}create-payment`,
       {
         method: "POST",
         headers: {
